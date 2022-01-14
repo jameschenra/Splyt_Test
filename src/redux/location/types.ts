@@ -1,5 +1,0 @@
-export const TAXI_SEARCH_REQUEST: string = 'TAXI_SEARCH_REQUEST'
-export const TAXI_SEARCH_SUCCESS: string = 'TAXI_SEARCH_SUCCESS'
-export const TAXI_SEARCH_FAILED: string = 'TAXI_SEARCH_FAILED'
-export const SET_OFFICE: string = 'SET_OFFICE'
-export const SET_COUNT: string = 'SET_COUNT'

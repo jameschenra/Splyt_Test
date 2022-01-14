@@ -3,7 +3,8 @@ import Controls from "./Controls";
 import Map from "./Map";
 import * as location from "../utils/location";
 import { useDispatch } from "react-redux";
-import { setOffice } from "../redux/location/action";
+import { setOffice } from "../reducers/filters";
+
 
 const Content = () => {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ const Content = () => {
 
       dispatch(setOffice(nearOffice));
     });
-  }, [dispatch]);
+  }, []);
 
   return (
     <div>

@@ -1,21 +1,15 @@
 import { Col, Container, Form, Row } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { setCount, setOffice } from "../redux/location/action";
+import { useDispatch } from "react-redux";
+import { setTaxiCount, setOffice, selectOfficeCity, selectTaxiCount } from "../reducers/filters";
 import { Range } from "react-range";
 import { useState } from "react";
+import { useAppSelector } from "../store/configureStore";
 
 const Controls = () => {
   const dispatch = useDispatch();
-  const officeCity: string = useSelector(
-    (state: any) => state.location.office_city
-  );
-
-  const taxiCount: number = useSelector(
-    (state: any) => state.location.taxi_count
-  );
-
+  const officeCity: string = useAppSelector(selectOfficeCity);
+  const taxiCount: number = useAppSelector(selectTaxiCount);
   const [countValue, setCountValue] = useState(taxiCount);
-  
 
   const onChangeOffice = (e: any) => {
     const newCity: string = e.target.value;
@@ -27,7 +21,7 @@ const Controls = () => {
   };
 
   const onChangedTaxiCount = () => {
-    dispatch(setCount(countValue));
+    dispatch(setTaxiCount(countValue));
   }
 
   return (

@@ -2,23 +2,32 @@ import GoogleMapReact from "google-map-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import offices from "../constants/Offices";
-import { searchTaxis } from "../redux/location/action";
 import LocationType from "../Types/LocationType";
 import { REFRESH_INTERVAL, MAP_API_KEY } from '../constants/Config'
-import { RootState } from "../redux/store";
+import { useAppSelector } from "../store/configureStore";
+import { selectOfficeCity, selectTaxiCount } from "../reducers/filters";
+import { searchTaxis, selectTaxis } from "../reducers/taxis";
 
 const TaxiMarkComponent = ({ index, text, lat, lng }: {index: number, text: string, lat: number, lng: number}) => {
   return <div className='circleText' title={text}>
       {index + 1}
   </div>;
-} 
+}
 
 const Map = () => {
   const [officeLocation, setOfficeLocation] = useState<LocationType | null>(null)
-  const officeCity = useSelector((state: RootState) => state.location.office_city)
-  const taxiCount = useSelector((state: RootState) => state.location.taxi_count)
-  const taxis = useSelector((state: RootState) => state.location.taxis)
+  const officeCity = useAppSelector(selectOfficeCity)
+  const taxiCount = useAppSelector(selectTaxiCount)
+  const taxis = useSelector(selectTaxis)
+  
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      dispatch(searchTaxis())
+    }, REFRESH_INTERVAL);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     setOfficeLocation({
@@ -26,14 +35,7 @@ const Map = () => {
       longitude: offices[officeCity].longitude,
     });
     dispatch(searchTaxis())
-  }, [dispatch, officeCity, taxiCount])
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      dispatch(searchTaxis())
-    }, REFRESH_INTERVAL);
-    return () => clearInterval(interval);
-  }, [dispatch]);
+  }, [officeCity, taxiCount])
 
   return (
     <div style={{ height: "80vh", width: "100%" }}>
@@ -52,7 +54,6 @@ const Map = () => {
                 index={i}
                 text={taxi.driver_id}
               />)
-              
             }) : ''
           }
         </GoogleMapReact> : ''}
