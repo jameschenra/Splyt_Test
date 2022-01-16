@@ -1,5 +1,5 @@
 import offices from "../constants/Offices";
-import LocationType from "../Types/LocationType";
+import LocationType from "../types/LocationType";
 
 export const getNearestOffice = (clientLocation: LocationType): string => {
     const distanceLondon: number = calcCrow(clientLocation, offices.LONDON)

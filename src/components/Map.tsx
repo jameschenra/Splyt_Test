@@ -2,7 +2,7 @@ import GoogleMapReact from "google-map-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import offices from "../constants/Offices";
-import LocationType from "../Types/LocationType";
+import LocationType from "../types/LocationType";
 import { REFRESH_INTERVAL, MAP_API_KEY } from '../constants/Config'
 import { useAppSelector } from "../store/configureStore";
 import { selectOfficeCity, selectTaxiCount } from "../reducers/filters";

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import LocationType from "../Types/LocationType"
+import LocationType from "../types/LocationType"
 import offices from "../constants/Offices";
 import { RootState } from "../store/configureStore";
 import axios from "axios";

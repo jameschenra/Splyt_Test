@@ -1,4 +1,4 @@
-import LocationType from "../Types/LocationType";
+import LocationType from "../types/LocationType";
 
 const offices: Record<string, LocationType> = {
     SINGAPORE: {
