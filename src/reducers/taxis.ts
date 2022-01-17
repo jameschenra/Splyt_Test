@@ -7,35 +7,38 @@ import { SERVER_URL } from "../constants/Config";
 
 export interface locationState {
     loading: boolean,
-    office_city: string,
+    current_office: string,
     taxi_count: number,
     taxis: {}[]
 }
 
 const initialState: locationState = {
     loading: false,
-    office_city: 'LONDON',
+    current_office: 'LONDON',
     taxi_count: 5,
     taxis: []
 }
 
 export const searchTaxis = createAsyncThunk(
     'taxis/taxiSearch',
-    async (_: void, thunkAPI) => {
+    async (centerLocation: LocationType | null, thunkAPI) => {
+        console.log('center location:', centerLocation)
         const { getState } = thunkAPI
         const state: RootState = getState() as RootState
 
-        const officeLocation: LocationType = offices[state.filters.office_city];
+        const filterLocation = centerLocation || offices[state.filters.current_office]
         const taxiCount: number = state.filters.taxi_count
+
+        // console.log(filterLocation)
 
         const response = await axios.get(`${SERVER_URL}/drivers`, {
             params: {
-                latitude: officeLocation?.latitude,
-                longitude: officeLocation?.longitude,
+                latitude: filterLocation?.latitude,
+                longitude: filterLocation?.longitude,
                 count: taxiCount
             }
         })
-        
+
         return response.data.drivers
     }
 )

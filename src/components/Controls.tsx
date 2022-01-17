@@ -1,13 +1,13 @@
 import { Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { setTaxiCount, setOffice, selectOfficeCity, selectTaxiCount } from "../reducers/filters";
+import { setTaxiCount, setOffice, selectCurrentOffice, selectTaxiCount } from "../reducers/filters";
 import { Range } from "react-range";
 import { useState } from "react";
 import { useAppSelector } from "../store/configureStore";
 
 const Controls = () => {
   const dispatch = useDispatch();
-  const officeCity: string = useAppSelector(selectOfficeCity);
+  const officeCity: string = useAppSelector(selectCurrentOffice);
   const taxiCount: number = useAppSelector(selectTaxiCount);
   const [countValue, setCountValue] = useState(taxiCount);
 

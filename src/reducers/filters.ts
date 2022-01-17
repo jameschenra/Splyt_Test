@@ -2,12 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { RootState } from "../store/configureStore"
 
 export interface FilterState {
-    office_city: string,
+    current_office: string,
     taxi_count: number
 }
 
 const initialState: FilterState = {
-    office_city: 'LONDON',
+    current_office: 'LONDON',
     taxi_count: 5
 }
 
@@ -16,7 +16,7 @@ const filtersSlice = createSlice({
     initialState,
     reducers: {
         setOffice: (state, action: PayloadAction<string>) => {
-            state.office_city = action.payload
+            state.current_office = action.payload
         },
         setTaxiCount: (state, action: PayloadAction<number>) => {
             state.taxi_count = action.payload
@@ -24,7 +24,7 @@ const filtersSlice = createSlice({
     },
 })
 
-export const selectOfficeCity = (state: RootState) => state.filters.office_city
+export const selectCurrentOffice = (state: RootState) => state.filters.current_office
 export const selectTaxiCount = (state: RootState) => state.filters.taxi_count
 
 export const { setOffice, setTaxiCount } = filtersSlice.actions
